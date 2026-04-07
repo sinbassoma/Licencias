@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SINBA - Autorizaciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple: #5a2ca0;
+  --purple-dark: #3d1f73;
+  --yellow: #f2a900;
+  --bg: #f7f6fb;
+  --text: #1f1f1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  margin-top: 0.5rem;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.container {
+  padding: 1.5rem 1rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--purple-dark);
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+}
+
+.slide {
+  display: none;
+  background: white;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  animation: fade 0.5s ease;
+}
+
+.slide.active {
+  display: block;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(10px);} 
+  to {opacity: 1; transform: translateY(0);} 
+}
+
+.slide h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+  color: var(--purple);
+}
+
+.slide p {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  color: #555;
+}
+
+.pdf-viewer {
+  width: 100%;
+  height: 460px;
+  border-radius: 12px;
+  border: none;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+button {
+  background: var(--purple);
+  color: white;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.controls button {
+  background: white;
+  color: var(--purple);
+  border: 1px solid #ddd;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.dot.active {
+  background: var(--purple);
+}
+
+.links {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.links a {
+  display: block;
+  margin: 0.4rem 0;
+  color: var(--purple);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Cursor solo en desktop */
+.cursor-img {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .cursor-img {
+    display: block;
+    position: fixed;
+    width: 70px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.7;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SINBA</h1>
+  <p>Autorizaciones y licencias operativas</p>
+</header>
+
+<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="cursor-img" id="cursorImg" />
+
+<div class="container">
+
+  <div class="section">
+    <div class="title">Licencias</div>
+
+    <div class="slider">
+
+      <div class="slide active">
+        <h3>CIRC</h3>
+        <p>Licencia de operación de la Biofábrica para valorización de residuos.</p>
+        <iframe class="pdf-viewer" src="docs/circ.pdf"></iframe>
+        <div class="actions">
+          <span></span>
+          <a href="docs/circ.pdf" download><button>Descargar</button></a>
+        </div>
+      </div>
+
+      <div class="slide">
+        <h3>Arequipa</h3>
+        <p>Licencia de funcionamiento otorgada para operaciones regionales.</p>
+        <iframe class="pdf-viewer" src="docs/arequipa.pdf"></iframe>
+        <div class="actions">
+          <span></span>
+          <a href="docs/arequipa.pdf" download><button>Descargar</button></a>
+        </div>
+      </div>
+
+      <div class="slide">
+        <h3>EORS</h3>
+        <p>Registro como Empresa Operadora de Residuos Sólidos.</p>
+        <iframe class="pdf-viewer" src="docs/eors.pdf"></iframe>
+        <div class="actions">
+          <span></span>
+          <a href="docs/eors.pdf" download><button>Descargar</button></a>
+        </div>
+      </div>
+
+      <div class="slide">
+        <h3>Biofábrica</h3>
+        <p>Autorización para planta de valorización y reciclaje.</p>
+        <iframe class="pdf-viewer" src="docs/biofabrica.pdf"></iframe>
+        <div class="actions">
+          <span></span>
+          <a href="docs/biofabrica.pdf" download><button>Descargar</button></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="controls">
+      <button onclick="prevSlide()">◀</button>
+      <button onclick="nextSlide()">▶</button>
+    </div>
+
+    <div class="indicators" id="dots"></div>
+
+  </div>
+
+  <div class="section">
+    <div class="title">Documentos</div>
+    <div class="links">
+      <a href="#" target="_blank">Manual Operativo</a>
+      <a href="#" target="_blank">Procedimientos</a>
+      <a href="#" target="_blank">Reglamentos</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const img = document.getElementById('cursorImg');
+document.addEventListener('mousemove', (e) => {
+  img.style.left = e.clientX + 'px';
+  img.style.top = e.clientY + 'px';
+});
+
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('dots');
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.classList.add('dot');
+  if (i === 0) dot.classList.add('active');
+  dot.onclick = () => {
+    current = i;
+    showSlide(current);
+  };
+  dotsContainer.appendChild(dot);
+});
+
+function updateDots() {
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+function showSlide(index) {
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  updateDots();
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+}
+
+let autoSlide = setInterval(nextSlide, 5000);
+
+const slider = document.querySelector('.slider');
+slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+slider.addEventListener('mouseleave', () => {
+  autoSlide = setInterval(nextSlide, 5000);
+});
+</script>
+
+</body>
+</html>
