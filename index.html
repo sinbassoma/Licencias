@@ -523,6 +523,31 @@ footer a {
     grid-template-columns: 1fr;
   }
 }
+
+.pdf-container {
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.pdf-embed {
+  width: 100%;
+  height: 380px; /* Ajusta según el espacio disponible */
+  border: none;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .pdf-embed {
+    height: 280px;
+  }
+}
+
+  
 </style>
 </head>
 <body>
@@ -608,22 +633,36 @@ footer a {
 
         <!-- SLIDE 4: EORS -->
         <div class="slide">
-          <div class="slide-header">
-            <span class="slide-badge badge-green">Registro</span>
-            <h3>EORS</h3>
-          </div>
-          <p>Registro como Empresa Operadora de Residuos Sólidos — Certificado oficial.</p>
-          <div class="img-container">
-            <img src="EORS.png" alt="EORS - Registro de Operador" loading="lazy" />
-          </div>
-          <div class="actions">
-            <span class="status">Vigente hasta Mar 2029</span>
-            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-              Descargar PDF
-            </a>
-          </div>
-        </div>
+  <div class="slide-header">
+    <span class="slide-badge badge-green">Registro</span>
+    <h3>EORS</h3>
+  </div>
+  <p>Registro como Empresa Operadora de Residuos Sólidos — Certificado oficial.</p>
+  
+  <div class="img-container">
+    <img src="EORS.png" alt="EORS - Registro de Operador" loading="lazy" />
+  </div>
+
+  <!-- 📄 Vista previa del PDF -->
+  <div class="pdf-container">
+    <iframe 
+      src="EORS.pdf" 
+      class="pdf-embed" 
+      title="Vista previa del certificado EORS" 
+      loading="lazy">
+      Tu navegador no permite visualizar PDFs incrustados. 
+      <a href="EORS.pdf" download>Descárgalo aquí</a>.
+    </iframe>
+  </div>
+
+  <div class="actions">
+    <span class="status">Vigente hasta Mar 2029</span>
+    <a class="btn" href="EORS.pdf" onclick="alert('Descarga simulada'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Descargar PDF
+    </a>
+  </div>
+</div>
 
         <!-- SLIDE 5: BIOFÁBRICA -->
         <div class="slide">
@@ -637,7 +676,7 @@ footer a {
           </div>
           <div class="actions">
             <span class="status">Vigente</span>
-            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+            <a class="btn" href="LicenciaBIO.pdf" onclick="alert('Descarga simulada'); return false;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               Descargar PDF
             </a>
