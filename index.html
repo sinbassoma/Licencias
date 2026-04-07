@@ -4,48 +4,96 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SINBA - Autorizaciones</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/index.min.css" rel="stylesheet">
 <style>
 :root {
   --purple: #5a2ca0;
   --purple-dark: #3d1f73;
+  --purple-light: #7b4fc7;
   --yellow: #f2a900;
+  --yellow-light: #ffd54f;
   --bg: #f7f6fb;
   --text: #1f1f1f;
+  --text-light: #555;
+  --card-shadow: 0 8px 32px rgba(90, 44, 160, 0.10);
+  --card-shadow-hover: 0 12px 40px rgba(90, 44, 160, 0.18);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
   font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 header {
   background: linear-gradient(135deg, var(--purple), var(--purple-dark));
   color: white;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1.5rem 2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(242,169,0,0.08) 0%, transparent 40%);
+  pointer-events: none;
 }
 
 header h1 {
   margin: 0;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+  position: relative;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-header p {
+header .subtitle {
   margin-top: 0.5rem;
   opacity: 0.9;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 300;
+  position: relative;
+}
+
+header .badge {
+  display: inline-block;
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .container {
-  padding: 1.5rem 1rem;
+  padding: 2rem 1.2rem 3rem;
   max-width: 1000px;
   margin: auto;
 }
@@ -55,122 +103,291 @@ header p {
 }
 
 .title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   color: var(--purple-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-/* SLIDER */
+.title-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--purple);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.title-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
 .slider {
   position: relative;
+  overflow: hidden;
 }
 
 .slide {
   display: none;
   background: white;
-  border-radius: 16px;
-  padding: 1.2rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  animation: fade 0.5s ease;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  animation: slideIn 0.5s ease;
 }
 
 .slide.active {
   display: block;
 }
 
-@keyframes fade {
-  from {opacity: 0; transform: translateY(10px);} 
-  to {opacity: 1; transform: translateY(0);} 
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(15px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.slide-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.slide-badge {
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-purple {
+  background: linear-gradient(135deg, var(--purple), var(--purple-light));
+}
+
+.badge-gold {
+  background: linear-gradient(135deg, var(--yellow), #e09600);
+}
+
+.badge-green {
+  background: linear-gradient(135deg, #2e7d32, #43a047);
+}
+
+.badge-teal {
+  background: linear-gradient(135deg, #00838f, #00acc1);
 }
 
 .slide h3 {
-  margin: 0 0 0.3rem;
-  font-size: 1.1rem;
+  margin: 0;
+  font-size: 1.15rem;
   color: var(--purple);
 }
 
 .slide p {
-  font-size: 0.9rem;
-  margin-bottom: 0.8rem;
-  color: #555;
+  font-size: 0.88rem;
+  margin: 0.4rem 0 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
 }
 
-.pdf-viewer {
+.img-container {
   width: 100%;
-  height: 460px;
-  border-radius: 12px;
-  border: none;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid #eee;
+  position: relative;
+  background: #fafafa;
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.img-container:hover img {
+  transform: scale(1.015);
 }
 
 .actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-button {
+.status {
+  font-size: 0.78rem;
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.status::before {
+  content: '●';
+  font-size: 0.6rem;
+}
+
+.btn {
   background: var(--purple);
   color: white;
   border: none;
-  padding: 0.45rem 1rem;
+  padding: 0.55rem 1.3rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
 }
 
-button:hover {
-  opacity: 0.9;
+.btn:hover {
+  background: var(--purple-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(90,44,160,0.3);
 }
 
 .controls {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
 }
 
 .controls button {
   background: white;
   color: var(--purple);
-  border: 1px solid #ddd;
+  border: 1.5px solid #ddd;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  padding: 0;
+}
+
+.controls button:hover {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+  transform: scale(1.08);
 }
 
 .indicators {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 0.5rem;
+  gap: 8px;
+  margin-top: 1rem;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #ccc;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .dot.active {
   background: var(--purple);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(90,44,160,0.15);
 }
 
-.links {
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.doc-card {
   background: white;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-}
-
-.links a {
-  display: block;
-  margin: 0.4rem 0;
-  color: var(--purple);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.2rem;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
   text-decoration: none;
-  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1.5px solid transparent;
 }
 
-/* Cursor solo en desktop */
+.doc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--purple-light);
+}
+
+.doc-card .doc-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.doc-card .doc-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.doc-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--purple-dark);
+}
+
+.doc-card span {
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+.slide-counter {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
 .cursor-img {
   display: none;
 }
@@ -179,145 +396,397 @@ button:hover {
   .cursor-img {
     display: block;
     position: fixed;
-    width: 70px;
+    width: 40px;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.7;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    transform: translate(-2px, -2px);
   }
 }
 
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-light);
+  font-size: 0.8rem;
+  border-top: 1px solid #eee;
+  margin-top: 1rem;
+}
+
+footer a {
+  color: var(--purple);
+  text-decoration: none;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: #eee;
+  border-radius: 3px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--yellow));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.swipe-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  header .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 1.5rem 0.8rem 2rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .slide {
+    padding: 1rem;
+  }
+
+  .slide h3 {
+    font-size: 1rem;
+  }
+
+  .docs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .doc-card {
+    padding: 1.2rem 0.8rem;
+  }
+
+  .doc-card .doc-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .controls button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .swipe-hint {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 1.8rem 1rem 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .slide {
+    padding: 0.8rem;
+    border-radius: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .status {
+    justify-content: center;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+
+  .docs-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
 
 <header>
   <h1>SINBA</h1>
-  <p>Autorizaciones y licencias operativas</p>
+  <div class="subtitle">Autorizaciones y licencias operativas</div>
+  <div class="badge">✦ Plataforma de Gestión Documental</div>
 </header>
 
-<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="cursor-img" id="cursorImg" />
+<img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/136edab5c-a389-46a2-b9af-ff5b502c5399.png" class="cursor-img" id="cursorImg" alt="cursor" />
 
 <div class="container">
 
+  <!-- LICENCIAS SLIDER -->
   <div class="section">
-    <div class="title">Licencias</div>
-
-    <div class="slider">
-
-      <div class="slide active">
-        <h3>CIRC</h3>
-        <p>Licencia de operación de la Biofábrica para valorización de residuos.</p>
-        <iframe class="pdf-viewer" src="docs/circ.pdf"></iframe>
-        <div class="actions">
-          <span></span>
-          <a href="docs/circ.pdf" download><button>Descargar</button></a>
-        </div>
+    <div class="title">
+      <div class="title-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
       </div>
-
-      <div class="slide">
-        <h3>Arequipa</h3>
-        <p>Licencia de funcionamiento otorgada para operaciones regionales.</p>
-        <iframe class="pdf-viewer" src="docs/arequipa.pdf"></iframe>
-        <div class="actions">
-          <span></span>
-          <a href="docs/arequipa.pdf" download><button>Descargar</button></a>
-        </div>
-      </div>
-
-      <div class="slide">
-        <h3>EORS</h3>
-        <p>Registro como Empresa Operadora de Residuos Sólidos.</p>
-        <iframe class="pdf-viewer" src="docs/eors.pdf"></iframe>
-        <div class="actions">
-          <span></span>
-          <a href="docs/eors.pdf" download><button>Descargar</button></a>
-        </div>
-      </div>
-
-      <div class="slide">
-        <h3>Biofábrica</h3>
-        <p>Autorización para planta de valorización y reciclaje.</p>
-        <iframe class="pdf-viewer" src="docs/biofabrica.pdf"></iframe>
-        <div class="actions">
-          <span></span>
-          <a href="docs/biofabrica.pdf" download><button>Descargar</button></a>
-        </div>
-      </div>
-
+      Licencias Activas
     </div>
 
-    <div class="controls">
-      <button onclick="prevSlide()">◀</button>
-      <button onclick="nextSlide()">▶</button>
+    <div class="slider-wrapper">
+      <div class="slider">
+
+        <!-- SLIDE 1: CIRC -->
+        <div class="slide active">
+          <div class="slide-header">
+            <span class="slide-badge badge-purple">Licencia</span>
+            <h3>CIRC</h3>
+          </div>
+          <p>Licencia de operación de la Biofábrica para valorización de residuos — Economía Circular.</p>
+          <div class="img-container">
+            <img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/161243b50-5a66-4334-a8eb-b0f83e540b00.png" alt="CIRC - Licencia de Biofábrica Economía Circular" loading="lazy" />
+          </div>
+          <div class="actions">
+            <span class="status">Vigente hasta Dic 2027</span>
+            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Descargar PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: FTA -->
+        <div class="slide">
+          <div class="slide-header">
+            <span class="slide-badge badge-gold">Tratado Comercial</span>
+            <h3>FTA — Free Trade Agreement</h3>
+          </div>
+          <p>Acuerdo de Libre Comercio para operaciones ambientales y valorización de residuos a nivel internacional.</p>
+          <div class="img-container">
+            <img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/1cfe35891-cf32-4231-9295-527b2642bd0d.png" alt="FTA - Free Trade Agreement Biofábrica" loading="lazy" />
+          </div>
+          <div class="actions">
+            <span class="status">Vigente</span>
+            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Descargar PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: AREQUIPA -->
+        <div class="slide">
+          <div class="slide-header">
+            <span class="slide-badge badge-teal">Regional</span>
+            <h3>Arequipa</h3>
+          </div>
+          <p>Licencia de funcionamiento otorgada para operaciones regionales en Arequipa.</p>
+          <div class="img-container">
+            <img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/1b37055b7-8853-436d-8b45-18de65f68153.png" alt="Licencia Arequipa" loading="lazy" />
+          </div>
+          <div class="actions">
+            <span class="status">Vigente</span>
+            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Descargar PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: EORS -->
+        <div class="slide">
+          <div class="slide-header">
+            <span class="slide-badge badge-green">Registro</span>
+            <h3>EORS</h3>
+          </div>
+          <p>Registro como Empresa Operadora de Residuos Sólidos — Certificado oficial.</p>
+          <div class="img-container">
+            <img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/1f185ecf8-7792-4c87-9b6c-a4bf0f23414e.png" alt="EORS - Registro de Operador" loading="lazy" />
+          </div>
+          <div class="actions">
+            <span class="status">Vigente hasta Mar 2029</span>
+            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Descargar PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: BIOFÁBRICA -->
+        <div class="slide">
+          <div class="slide-header">
+            <span class="slide-badge badge-purple">Autorización</span>
+            <h3>Biofábrica</h3>
+          </div>
+          <p>Autorización para planta de valorización y reciclaje de residuos orgánicos.</p>
+          <div class="img-container">
+            <img src="https://image.qwenlm.ai/public_source/1d7fd722-abaf-4d71-99b3-5d52fa094e86/12e4087e5-4b1b-40e0-986d-f15144d434e0.png" alt="Biofábrica - Autorización" loading="lazy" />
+          </div>
+          <div class="actions">
+            <span class="status">Vigente</span>
+            <a class="btn" href="#" onclick="alert('Descarga simulada'); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Descargar PDF
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="controls">
+        <button onclick="prevSlide()" aria-label="Anterior">◀</button>
+        <button onclick="nextSlide()" aria-label="Siguiente">▶</button>
+      </div>
+
+      <div class="indicators" id="dots"></div>
+      <div class="slide-counter" id="slideCounter">1 / 5</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 20%"></div></div>
+      <div class="swipe-hint">⟵ Desliza para navegar ⟶</div>
     </div>
-
-    <div class="indicators" id="dots"></div>
-
   </div>
 
+  <!-- DOCUMENTOS -->
   <div class="section">
-    <div class="title">Documentos</div>
-    <div class="links">
-      <a href="#" target="_blank">Manual Operativo</a>
-      <a href="#" target="_blank">Procedimientos</a>
-      <a href="#" target="_blank">Reglamentos</a>
+    <div class="title">
+      <div class="title-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      </div>
+      Documentos de Referencia
+    </div>
+
+    <div class="docs-grid">
+
+      <a class="doc-card" href="#" onclick="alert('Manual Operativo — Documento no disponible en demo'); return false;">
+        <div class="doc-icon" style="background: linear-gradient(135deg, #ede7f6, #d1c4e9);">
+          <svg viewBox="0 0 24 24" fill="#5a2ca0"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        </div>
+        <h4>Manual Operativo</h4>
+        <span>Guía de procedimientos internos</span>
+      </a>
+
+      <a class="doc-card" href="#" onclick="alert('Procedimientos — Documento no disponible en demo'); return false;">
+        <div class="doc-icon" style="background: linear-gradient(135deg, #fff8e1, #ffecb3);">
+          <svg viewBox="0 0 24 24" fill="#f2a900"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <h4>Procedimientos</h4>
+        <span>Protocolos y checklist</span>
+      </a>
+
+      <a class="doc-card" href="#" onclick="alert('Reglamentos — Documento no disponible en demo'); return false;">
+        <div class="doc-icon" style="background: linear-gradient(135deg, #ede7f6, #b39ddb);">
+          <svg viewBox="0 0 24 24" fill="#5a2ca0"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm0 15v-2h12v2H6zm12-4h-4v-1.5h4V15zm0-4h-4v-1.5h4V11z"/></svg>
+        </div>
+        <h4>Reglamentos</h4>
+        <span>Normativa y regulación vigente</span>
+      </a>
+
     </div>
   </div>
 
 </div>
 
+<footer>
+  <p>© 2026 <a href="#">SINBA</a> — Sistema Nacional de Biofábricas y Autorizaciones. Todos los derechos reservados.</p>
+</footer>
+
 <script>
-const img = document.getElementById('cursorImg');
-document.addEventListener('mousemove', (e) => {
-  img.style.left = e.clientX + 'px';
-  img.style.top = e.clientY + 'px';
+var cursorEl = document.getElementById('cursorImg');
+document.addEventListener('mousemove', function(e) {
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top = e.clientY + 'px';
 });
 
-let current = 0;
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('dots');
+var currentSlide = 0;
+var allSlides = document.querySelectorAll('.slide');
+var dotsWrap = document.getElementById('dots');
+var counterEl = document.getElementById('slideCounter');
+var progressEl = document.getElementById('progressFill');
 
-slides.forEach((_, i) => {
-  const dot = document.createElement('div');
+allSlides.forEach(function(_, i) {
+  var dot = document.createElement('div');
   dot.classList.add('dot');
   if (i === 0) dot.classList.add('active');
-  dot.onclick = () => {
-    current = i;
-    showSlide(current);
+  dot.setAttribute('role', 'button');
+  dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+  dot.onclick = function() {
+    currentSlide = i;
+    renderSlide(currentSlide);
   };
-  dotsContainer.appendChild(dot);
+  dotsWrap.appendChild(dot);
 });
 
-function updateDots() {
-  document.querySelectorAll('.dot').forEach((d, i) => {
-    d.classList.toggle('active', i === current);
+function refreshDots() {
+  var dots = dotsWrap.querySelectorAll('.dot');
+  dots.forEach(function(d, i) {
+    d.classList.toggle('active', i === currentSlide);
   });
 }
 
-function showSlide(index) {
-  slides.forEach(s => s.classList.remove('active'));
-  slides[index].classList.add('active');
-  updateDots();
+function renderSlide(index) {
+  allSlides.forEach(function(s) { s.classList.remove('active'); });
+  allSlides[index].classList.add('active');
+  refreshDots();
+  counterEl.textContent = (index + 1) + ' / ' + allSlides.length;
+  progressEl.style.width = ((index + 1) / allSlides.length * 100) + '%';
 }
 
-function nextSlide() {
-  current = (current + 1) % slides.length;
-  showSlide(current);
+function goNext() {
+  currentSlide = (currentSlide + 1) % allSlides.length;
+  renderSlide(currentSlide);
 }
 
-function prevSlide() {
-  current = (current - 1 + slides.length) % slides.length;
-  showSlide(current);
+function goPrev() {
+  currentSlide = (currentSlide - 1 + allSlides.length) % allSlides.length;
+  renderSlide(currentSlide);
 }
 
-let autoSlide = setInterval(nextSlide, 5000);
+renderSlide(0);
 
-const slider = document.querySelector('.slider');
-slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-slider.addEventListener('mouseleave', () => {
-  autoSlide = setInterval(nextSlide, 5000);
+var autoTimer = setInterval(goNext, 5000);
+var sliderArea = document.querySelector('.slider-wrapper');
+
+sliderArea.addEventListener('mouseenter', function() { clearInterval(autoTimer); });
+sliderArea.addEventListener('mouseleave', function() {
+  autoTimer = setInterval(goNext, 5000);
+});
+
+var touchStartX = 0;
+var touchEndX = 0;
+
+sliderArea.addEventListener('touchstart', function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+  clearInterval(autoTimer);
+}, { passive: true });
+
+sliderArea.addEventListener('touchend', function(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  var diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) goNext();
+    else goPrev();
+  }
+  autoTimer = setInterval(goNext, 5000);
+}, { passive: true });
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') goNext();
+  if (e.key === 'ArrowLeft') goPrev();
 });
 </script>
 
 </body>
 </html>
+
